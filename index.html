@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Web HTML Đơn Giản</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f6f7fb; color: #222; }
+    header, footer { background: #111827; color: #fff; padding: 16px 20px; }
+    main { max-width: 900px; margin: 24px auto; padding: 0 20px; }
+    .card { background: #fff; border-radius: 12px; padding: 18px; box-shadow: 0 8px 20px rgba(0,0,0,.06); }
+    .row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+    input { flex: 1; min-width: 220px; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; }
+    button { padding: 10px 14px; border: 0; border-radius: 10px; cursor: pointer; background: #2563eb; color: #fff; }
+    button:hover { filter: brightness(0.95); }
+    .muted { color: #6b7280; }
+    ul { padding-left: 18px; margin: 10px 0 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="margin:0;">Xin chào 👋</h1>
+    <p style="margin:6px 0 0;" class="muted">Trang HTML đơn giản (HTML + CSS + JS)</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2 style="margin:0 0 8px;">Nhập tên của bạn</h2>
+      <p class="muted" style="margin:0 0 12px;">
+        Bấm nút để hiển thị lời chào và lưu vào danh sách bên dưới.
+      </p>
+
+      <div class="row">
+        <input id="nameInput" type="text" placeholder="Ví dụ: An, Bình, Chi..." />
+        <button id="helloBtn">Chào ngay</button>
+        <button id="clearBtn" style="background:#ef4444;">Xoá danh sách</button>
+      </div>
+
+      <p id="result" style="margin:14px 0 0; font-weight:600;"></p>
+
+      <h3 style="margin:16px 0 8px;">Danh sách đã chào</h3>
+      <ul id="list"></ul>
+    </div>
+  </main>
+
+  <footer>
+    <small>© <span id="year"></span> - Web đơn giản</small>
+  </footer>
+
+  <script>
+    const nameInput = document.getElementById("nameInput");
+    const helloBtn = document.getElementById("helloBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const result = document.getElementById("result");
+    const list = document.getElementById("list");
+    const year = document.getElementById("year");
+
+    year.textContent = new Date().getFullYear();
+
+    function addItem(text) {
+      const li = document.createElement("li");
+      li.textContent = text;
+      list.appendChild(li);
+    }
+
+    helloBtn.addEventListener("click", () => {
+      const name = nameInput.value.trim();
+      const displayName = name || "bạn";
+      const msg = `Chào ${displayName}! Chúc bạn một ngày vui 😊`;
+      result.textContent = msg;
+      addItem(msg);
+      nameInput.focus();
+      nameInput.select();
+    });
+
+    clearBtn.addEventListener("click", () => {
+      list.innerHTML = "";
+      result.textContent = "";
+      nameInput.value = "";
+      nameInput.focus();
+    });
+
+    nameInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") helloBtn.click();
+    });
+  </script>
+</body>
+</html>
